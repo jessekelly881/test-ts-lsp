@@ -1,18 +1,15 @@
 {
   "name": "REPLACE_ME",
-  "description": "REPLACE_ME",
   "version": "1.0.0",
+  "description": "REPLACE_ME",
   "author": "REPLACE_ME",
-  "license": "MIT",
   "engines": {
     "node": "*"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "REPLACE_ME"
   },
-  "dependencies": {
-    "vscode-languageserver": "^8.1.0",
-    "vscode-languageserver-textdocument": "^1.0.8"
-  }
+  "dependencies": {}
 }

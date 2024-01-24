@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": false,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.cache": true,
+        "**/.gitignore": true,
+        "**/.history": true,
+        "**/bun.lockb": true,
+        "**/node_modules": true,
+        "**/pnpm-lock.yaml": true
+    },
+    "explorerExclude.backup": {}
+}
