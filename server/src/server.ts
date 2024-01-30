@@ -1,6 +1,7 @@
 import log from "./log";
 import { initialize } from "./methods/initialize";
 import { completion } from "./methods/textDocument/completion";
+import { diagnostic } from "./methods/textDocument/diagnostic";
 import { didChange } from "./methods/textDocument/didChange";
 
 interface Message {
@@ -18,11 +19,12 @@ export interface RequestMessage extends NotificationMessage {
 
 const methodLookup: Record<
 	string,
-	typeof initialize | typeof completion | typeof didChange
+	typeof initialize | typeof completion | typeof didChange | typeof diagnostic
 > = {
 	initialize,
 	"textDocument/completion": completion,
-	"textDocument/didChange": didChange
+	"textDocument/didChange": didChange,
+	"textDocument/diagnostic": diagnostic
 };
 
 const respond = (id: RequestMessage["id"], result: object | null) => {

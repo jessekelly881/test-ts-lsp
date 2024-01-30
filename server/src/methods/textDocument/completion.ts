@@ -6,6 +6,7 @@ import * as fs from "fs";
 import { TextDocumentIdentifier, documents } from "../../documents";
 import log from "../../log";
 import { RequestMessage } from "../../server";
+import { Position } from "../../types";
 
 const words = fs
 	.readFileSync("/usr/share/dict/words", "utf8")
@@ -16,11 +17,6 @@ const maxResults = 100;
 
 interface CompletionItem {
 	label: string;
-}
-
-interface Position {
-	line: number;
-	character: number;
 }
 
 interface CompletionList {
