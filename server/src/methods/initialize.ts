@@ -16,7 +16,10 @@ export interface InitializeResult {
 
 export const initialize = (message: RequestMessage): InitializeResult => {
 	return {
-		capabilities: {},
+		capabilities: {
+			completionProvider: {},
+			textDocumentSync: 1
+		},
 		serverInfo: {
 			name: "lsp-from-scratch",
 			version: "0.0.1"

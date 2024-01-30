@@ -1,23 +1,31 @@
 import log from "./log";
 import { initialize } from "./methods/initialize";
+import { completion } from "./methods/textDocument/completion";
+import { didChange } from "./methods/textDocument/didChange";
 
 interface Message {
 	jsonrpc: string;
 }
 
-export interface RequestMessage extends Message {
-	id: number | string;
+export interface NotificationMessage extends Message {
 	method: string;
 	params: unknown[] | object;
 }
 
-type RequestMethod = (message: RequestMessage) => object;
+export interface RequestMessage extends NotificationMessage {
+	id: number | string;
+}
 
-const methodLookup: Record<string, RequestMethod> = {
-	initialize
+const methodLookup: Record<
+	string,
+	typeof initialize | typeof completion | typeof didChange
+> = {
+	initialize,
+	"textDocument/completion": completion,
+	"textDocument/didChange": didChange
 };
 
-const respond = (id: RequestMessage["id"], result: unknown) => {
+const respond = (id: RequestMessage["id"], result: object | null) => {
 	const message = JSON.stringify({ id, result });
 	const messageLength = Buffer.byteLength(message, "utf8");
 	const header = `Content-Length: ${messageLength}\r\n\r\n`;
@@ -49,7 +57,10 @@ process.stdin.on("data", (chunk) => {
 		// respond
 		const method = methodLookup[msg.method];
 		if (method) {
-			respond(msg.id, method(msg));
+			const result = method(msg);
+			if (result) {
+				respond(msg.id, result);
+			}
 		}
 
 		// remove processed msg
