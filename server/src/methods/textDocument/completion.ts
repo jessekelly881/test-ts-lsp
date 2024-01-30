@@ -12,6 +12,8 @@ const words = fs
 	.toString()
 	.split("\n");
 
+const maxResults = 100;
+
 interface CompletionItem {
 	label: string;
 }
@@ -49,13 +51,13 @@ export const completion = (msg: RequestMessage): CompletionList | null => {
 
 	const items: CompletionItem[] = words
 		.filter((word) => word.startsWith(currentPrefix))
-		.slice(0, 100)
+		.slice(0, maxResults)
 		.map((word) => ({
 			label: word
 		}));
 
 	return {
-		isIncomplete: true,
+		isIncomplete: items.length === maxResults,
 		items
 	};
 };
